@@ -522,68 +522,7 @@ h1 {
     line-height: 1.4;
 }
 
-.firebase-config {
-    background-color: var(--color-bg-1);
-    padding: var(--space-24);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--color-primary);
-    margin-bottom: var(--space-24);
-}
 
-.config-card {
-    background-color: var(--color-surface);
-    padding: var(--space-24);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-}
-
-.config-card h2 {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-16);
-    color: var(--color-text);
-}
-
-.config-help {
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-16);
-}
-
-.config-steps {
-    background-color: var(--color-bg-3);
-    padding: var(--space-16);
-    border-radius: var(--radius-base);
-    margin-bottom: var(--space-24);
-}
-
-.config-steps ol {
-    margin-left: var(--space-20);
-    font-size: var(--font-size-sm);
-    line-height: 1.6;
-}
-
-.config-steps li {
-    margin-bottom: var(--space-8);
-}
-
-.config-note {
-    margin-top: var(--space-16);
-    padding: var(--space-12);
-    background-color: var(--color-bg-2);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-}
-
-.config-note pre {
-    background-color: var(--color-background);
-    padding: var(--space-8);
-    border-radius: var(--radius-sm);
-    margin-top: var(--space-8);
-    overflow-x: auto;
-    font-size: var(--font-size-xs);
-}
 
 .connection-status {
     display: flex;
@@ -645,57 +584,7 @@ h1 {
     <div class="container">
         <h1>Gestion des Jeux Vidéo 🎮</h1>
         
-        <!-- Firebase Configuration Section -->
-        <div class="firebase-config" id="firebaseConfig" style="display: none;">
-            <div class="config-card">
-                <h2>🔧 Configuration Firebase</h2>
-                <p class="config-help">Pour activer la synchronisation en temps réel, configurez Firebase en 4 étapes simples :</p>
-                
-                <div class="config-steps">
-                    <ol>
-                        <li>Créez un compte Firebase gratuit sur <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a></li>
-                        <li>Créez un nouveau projet Firebase</li>
-                        <li>Dans Paramètres du projet → Vos applications → Config, copiez les paramètres</li>
-                        <li>Collez les 4 paramètres ci-dessous</li>
-                    </ol>
-                </div>
-
-                <div class="form-group">
-                    <label for="configApiKey">API Key</label>
-                    <input type="text" id="configApiKey" placeholder="AIzaSy...">
-                </div>
-
-                <div class="form-group">
-                    <label for="configAuthDomain">Auth Domain</label>
-                    <input type="text" id="configAuthDomain" placeholder="votre-projet.firebaseapp.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="configProjectId">Project ID</label>
-                    <input type="text" id="configProjectId" placeholder="votre-projet">
-                </div>
-
-                <div class="form-group">
-                    <label for="configDatabaseURL">Database URL</label>
-                    <input type="text" id="configDatabaseURL" placeholder="https://votre-projet-default-rtdb.firebaseio.com">
-                </div>
-
-                <button class="btn" onclick="saveFirebaseConfig()">💾 Sauvegarder la Configuration</button>
-                <div class="message" id="configMessage"></div>
-                
-                <div class="config-note">
-                    <strong>Note de sécurité :</strong> Ces règles Firebase sont publiques pour la démo. Pour la production, ajoutez l'authentification Firebase.
-                    <br><br>
-                    <strong>Règles Firebase à configurer :</strong>
-                    <pre>{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}</pre>
-                </div>
-            </div>
-        </div>
+        <!-- Firebase est déjà configuré automatiquement! -->
 
         <!-- Connection Status -->
         <div class="connection-status" id="connectionStatus">
@@ -752,11 +641,17 @@ h1 {
     </div>
 
     <script>
-        // Firebase variables
+        // Firebase variables - CONFIGURATION PRÉ-CONFIGURÉE
         let firebaseApp = null;
         let database = null;
         let isFirebaseConfigured = false;
-        let firebaseConfig = null;
+        // Configuration Firebase codée en dur - prête à l'emploi!
+        let firebaseConfig = {
+            apiKey: "AIzaSyBVB8dxeMlczYYgXLzyo2NDELNABKzGUtA",
+            authDomain: "dgdgames-1750c.firebaseapp.com",
+            databaseURL: "https://dgdgames-1750c-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "dgdgames-1750c"
+        };
 
         // Données initiales
         let players = ['Mouki', 'Powertwo', 'Tao', 'Sordax', 'Babour', 'Teklon', 'Baylie'];
@@ -1148,58 +1043,13 @@ h1 {
             }
         });
 
-        // Check Firebase configuration on load
+        // Check Firebase configuration on load - AUTO-CONNECT
         function checkFirebaseConfig() {
-            const savedConfig = getFirebaseConfigFromMemory();
-            if (savedConfig) {
-                firebaseConfig = savedConfig;
-                initializeFirebase(savedConfig);
-            } else {
-                document.getElementById('firebaseConfig').style.display = 'block';
-                updateConnectionStatus(false);
-            }
+            // Firebase est déjà configuré, connexion automatique!
+            initializeFirebase(firebaseConfig);
         }
 
-        // Get Firebase config from memory (using a global variable)
-        let storedFirebaseConfig = null;
-        function getFirebaseConfigFromMemory() {
-            return storedFirebaseConfig;
-        }
 
-        // Save Firebase config to memory
-        function setFirebaseConfigToMemory(config) {
-            storedFirebaseConfig = config;
-        }
-
-        // Save Firebase configuration
-        function saveFirebaseConfig() {
-            const apiKey = document.getElementById('configApiKey').value.trim();
-            const authDomain = document.getElementById('configAuthDomain').value.trim();
-            const projectId = document.getElementById('configProjectId').value.trim();
-            const databaseURL = document.getElementById('configDatabaseURL').value.trim();
-
-            if (!apiKey || !authDomain || !projectId || !databaseURL) {
-                showMessage('configMessage', 'Veuillez remplir tous les champs', 'error');
-                return;
-            }
-
-            const config = {
-                apiKey: apiKey,
-                authDomain: authDomain,
-                projectId: projectId,
-                databaseURL: databaseURL
-            };
-
-            setFirebaseConfigToMemory(config);
-            firebaseConfig = config;
-
-            showMessage('configMessage', '✓ Configuration sauvegardée ! Initialisation de Firebase...', 'success');
-
-            setTimeout(() => {
-                document.getElementById('firebaseConfig').style.display = 'none';
-                initializeFirebase(config);
-            }, 1500);
-        }
 
         // Initialize Firebase
         function initializeFirebase(config) {
