@@ -653,10 +653,10 @@ h1 {
             projectId: "dgdgames-1750c"
         };
 
-        // Données initiales
+        // Données initiales - avec tirets pour affichage
         let players = ['Mouki', 'Powertwo', 'Tao', 'Sordax', 'Babour', 'Teklon', 'Baylie'];
         let games = [
-            'AMQ/Skribblio/Gartic/Memebuddy',
+            'AMQ - Skribblio - Gartic - Memebuddy',
             'APEX Legends',
             'ARAM',
             'Arena',
@@ -676,7 +676,7 @@ h1 {
             'Shape of Dreams',
             'Supervive',
             'The FINALS',
-            'Valorant/CS2',
+            'Valorant - CS2',
             'Warframe'
         ];
 
@@ -687,6 +687,30 @@ h1 {
         let editingGame = null;
         let editingPlayer = null;
 
+        // Helper functions for Firebase key conversion
+        function toFirebaseKey(name) {
+            // Convert display name to Firebase-safe key
+            return name.replace(/\//g, '_').replace(/ - /g, '_');
+        }
+
+        function toDisplayName(key) {
+            // Convert Firebase key back to display name
+            // Check if it's one of the special multi-game names
+            if (key === 'AMQ_Skribblio_Gartic_Memebuddy') {
+                return 'AMQ - Skribblio - Gartic - Memebuddy';
+            }
+            if (key === 'Valorant_CS2') {
+                return 'Valorant - CS2';
+            }
+            // For other names, just return as-is
+            return key;
+        }
+
+        function sanitizeGameName(name) {
+            // Convert slashes to dashes for user input
+            return name.replace(/\//g, ' - ');
+        }
+
         // Firebase initialization flag
         let isInitializing = false;
         let hasLoadedInitialData = false;
@@ -694,9 +718,10 @@ h1 {
         // Initialiser l'état
         function initializeState() {
             games.forEach(game => {
-                checkedState[game] = {};
+                const firebaseKey = toFirebaseKey(game);
+                checkedState[firebaseKey] = {};
                 players.forEach(player => {
-                    checkedState[game][player] = false;
+                    checkedState[firebaseKey][player] = false;
                 });
             });
         }
@@ -714,12 +739,15 @@ h1 {
         // Ajouter un jeu
         function addGame() {
             const input = document.getElementById('newGame');
-            const gameName = input.value.trim();
+            let gameName = input.value.trim();
 
             if (!gameName) {
                 showMessage('gameMessage', 'Veuillez entrer un nom de jeu', 'error');
                 return;
             }
+
+            // Sanitize the game name (convert / to -)
+            gameName = sanitizeGameName(gameName);
 
             if (games.includes(gameName)) {
                 showMessage('gameMessage', 'Ce jeu existe déjà', 'error');
@@ -727,9 +755,10 @@ h1 {
             }
 
             games.push(gameName);
-            checkedState[gameName] = {};
+            const firebaseKey = toFirebaseKey(gameName);
+            checkedState[firebaseKey] = {};
             players.forEach(player => {
-                checkedState[gameName][player] = false;
+                checkedState[firebaseKey][player] = false;
             });
 
             input.value = '';
@@ -757,7 +786,8 @@ h1 {
 
             players.push(playerName);
             games.forEach(game => {
-                checkedState[game][playerName] = false;
+                const firebaseKey = toFirebaseKey(game);
+                checkedState[firebaseKey][playerName] = false;
             });
 
             input.value = '';
@@ -770,7 +800,11 @@ h1 {
 
         // Gérer le changement de case à cocher
         function handleCheckboxChange(game, player, checked) {
-            checkedState[game][player] = checked;
+            const firebaseKey = toFirebaseKey(game);
+            if (!checkedState[firebaseKey]) {
+                checkedState[firebaseKey] = {};
+            }
+            checkedState[firebaseKey][player] = checked;
             
             // Mettre à jour visuellement la cellule
             const checkbox = document.querySelector(`input[data-game="${game}"][data-player="${player}"]`);
@@ -821,12 +855,15 @@ h1 {
         // Confirmer l'édition d'un jeu
         function confirmEditGame(oldName, button) {
             const input = button.parentElement.previousElementSibling;
-            const newName = input.value.trim();
+            let newName = input.value.trim();
             
             if (!newName) {
                 alert('Le nom ne peut pas être vide');
                 return;
             }
+            
+            // Sanitize the new name
+            newName = sanitizeGameName(newName);
             
             if (newName !== oldName && games.includes(newName)) {
                 alert('Ce nom de jeu existe déjà');
@@ -837,9 +874,11 @@ h1 {
             const index = games.indexOf(oldName);
             if (index !== -1) {
                 games[index] = newName;
-                // Mettre à jour l'état des cases
-                checkedState[newName] = checkedState[oldName];
-                delete checkedState[oldName];
+                // Mettre à jour l'état des cases avec les clés Firebase
+                const oldKey = toFirebaseKey(oldName);
+                const newKey = toFirebaseKey(newName);
+                checkedState[newKey] = checkedState[oldKey];
+                delete checkedState[oldKey];
             }
             
             editingGame = null;
@@ -891,10 +930,13 @@ h1 {
             const index = players.indexOf(oldName);
             if (index !== -1) {
                 players[index] = newName;
-                // Mettre à jour l'état des cases
+                // Mettre à jour l'état des cases avec les clés Firebase
                 games.forEach(game => {
-                    checkedState[game][newName] = checkedState[game][oldName];
-                    delete checkedState[game][oldName];
+                    const firebaseKey = toFirebaseKey(game);
+                    if (checkedState[firebaseKey]) {
+                        checkedState[firebaseKey][newName] = checkedState[firebaseKey][oldName];
+                        delete checkedState[firebaseKey][oldName];
+                    }
                 });
             }
             
@@ -920,7 +962,8 @@ h1 {
             const index = games.indexOf(gameName);
             if (index !== -1) {
                 games.splice(index, 1);
-                delete checkedState[gameName];
+                const firebaseKey = toFirebaseKey(gameName);
+                delete checkedState[firebaseKey];
                 saveGamesToFirebase();
                 saveCheckedStateToFirebase();
                 renderTable();
@@ -938,7 +981,10 @@ h1 {
             if (index !== -1) {
                 players.splice(index, 1);
                 games.forEach(game => {
-                    delete checkedState[game][playerName];
+                    const firebaseKey = toFirebaseKey(game);
+                    if (checkedState[firebaseKey]) {
+                        delete checkedState[firebaseKey][playerName];
+                    }
                 });
                 savePlayersToFirebase();
                 saveCheckedStateToFirebase();
@@ -1013,12 +1059,16 @@ h1 {
                     checkbox.type = 'checkbox';
                     checkbox.dataset.game = game;
                     checkbox.dataset.player = player;
-                    checkbox.checked = checkedState[game][player];
+                    
+                    const firebaseKey = toFirebaseKey(game);
+                    const isChecked = checkedState[firebaseKey] && checkedState[firebaseKey][player];
+                    checkbox.checked = isChecked;
+                    
                     checkbox.addEventListener('change', (e) => {
                         handleCheckboxChange(game, player, e.target.checked);
                     });
                     
-                    if (checkedState[game][player]) {
+                    if (isChecked) {
                         td.classList.add('checked');
                     }
                     
@@ -1145,7 +1195,24 @@ h1 {
                         games.push(...data.games);
                         
                         if (data.checkedState) {
+                            // Ensure all games have Firebase keys in checkedState
                             checkedState = data.checkedState;
+                            
+                            // Migrate old data if needed (from / to _)
+                            games.forEach(game => {
+                                const firebaseKey = toFirebaseKey(game);
+                                if (!checkedState[firebaseKey] && checkedState[game]) {
+                                    // Migrate old key to new key
+                                    checkedState[firebaseKey] = checkedState[game];
+                                    delete checkedState[game];
+                                } else if (!checkedState[firebaseKey]) {
+                                    // Initialize if doesn't exist
+                                    checkedState[firebaseKey] = {};
+                                    players.forEach(player => {
+                                        checkedState[firebaseKey][player] = false;
+                                    });
+                                }
+                            });
                         } else {
                             initializeState();
                         }
