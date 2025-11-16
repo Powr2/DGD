@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Jeux Vidéo - Groupe</title>
+    <title>DGDGames - Jeux &amp; Clips</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
@@ -578,14 +578,416 @@ h1 {
         width: 100%;
     }
 }
+
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    gap: var(--space-8);
+    margin-bottom: var(--space-24);
+    border-bottom: 2px solid var(--color-card-border);
+}
+
+.tab-btn {
+    padding: var(--space-12) var(--space-24);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all var(--duration-normal) var(--ease-standard);
+    margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+    color: var(--color-text);
+    background-color: var(--color-secondary);
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Clips Section */
+.clips-container {
+    display: flex;
+    gap: var(--space-24);
+    flex-direction: column;
+}
+
+.clips-upload-section {
+    background-color: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-md);
+}
+
+.clips-upload-section h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-16);
+    color: var(--color-text);
+}
+
+.upload-form {
+    display: grid;
+    gap: var(--space-16);
+    max-width: 800px;
+}
+
+.form-row {
+    display: grid;
+    gap: var(--space-16);
+    grid-template-columns: 1fr 1fr;
+}
+
+.tutorial-box {
+    background-color: var(--color-bg-1);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-card-border);
+    margin-top: var(--space-16);
+}
+
+.tutorial-box h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-12);
+    color: var(--color-text);
+}
+
+.tutorial-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tutorial-box li {
+    padding: var(--space-8) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.tutorial-box li strong {
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+}
+
+select[multiple] {
+    min-height: 120px;
+    padding: var(--space-8);
+}
+
+select[multiple] option {
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-2);
+}
+
+select[multiple] option:checked {
+    background-color: var(--color-primary);
+    color: var(--color-btn-primary-text);
+}
+
+/* Clips Gallery */
+.clips-gallery-section {
+    background-color: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-md);
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-24);
+}
+
+.gallery-header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    margin-bottom: var(--space-24);
+}
+
+.tag-filter {
+    padding: var(--space-6) var(--space-12);
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.tag-filter:hover {
+    background-color: var(--color-secondary-hover);
+    transform: translateY(-1px);
+}
+
+.tag-filter.active {
+    background-color: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    border-color: var(--color-primary);
+}
+
+.tag-count {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: var(--space-2) var(--space-6);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+}
+
+.clips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-24);
+}
+
+.clip-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-standard);
+    cursor: pointer;
+}
+
+.clip-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+}
+
+.clip-thumbnail {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.clip-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.clip-thumbnail::after {
+    content: '▶';
+    position: absolute;
+    font-size: 48px;
+    color: var(--color-white);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    opacity: 0.9;
+}
+
+.clip-card:hover .clip-thumbnail::after {
+    transform: scale(1.1);
+    transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.clip-info {
+    padding: var(--space-16);
+}
+
+.clip-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.clip-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-bottom: var(--space-12);
+}
+
+.clip-tag {
+    padding: var(--space-4) var(--space-8);
+    background-color: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.clip-actions {
+    display: flex;
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+}
+
+.btn-small {
+    padding: var(--space-6) var(--space-12);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-base);
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.btn-watch {
+    flex: 1;
+    background-color: var(--color-primary);
+    color: var(--color-btn-primary-text);
+}
+
+.btn-watch:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-edit {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.btn-edit:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.btn-delete {
+    background-color: rgba(var(--color-red-500-rgb), 0.15);
+    color: var(--color-error);
+}
+
+.btn-delete:hover {
+    background-color: rgba(var(--color-red-500-rgb), 0.25);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-32);
+    color: var(--color-text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 64px;
+    margin-bottom: var(--space-16);
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+}
+
+/* Login Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--color-surface);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content h2 {
+    margin-bottom: var(--space-24);
+    color: var(--color-text);
+    font-size: var(--font-size-2xl);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-12);
+    margin-top: var(--space-16);
+}
+
+.modal-actions .btn {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .clips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tab-navigation {
+        overflow-x: auto;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Gestion des Jeux Vidéo 🎮</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-24);">
+            <h1 style="margin: 0;">DGDGames 🎮</h1>
+            <div id="authSection">
+                <button class="btn-secondary" onclick="showLoginModal()" id="loginBtn" style="width: auto; padding: var(--space-8) var(--space-16);">Se connecter</button>
+                <div id="userInfo" style="display: none; align-items: center; gap: var(--space-12);">
+                    <span style="color: var(--color-text); font-weight: var(--font-weight-medium);">Connecté en tant que <strong id="userName"></strong></span>
+                    <button class="btn-secondary" onclick="logout()" style="width: auto; padding: var(--space-6) var(--space-12); font-size: var(--font-size-sm);">Déconnexion</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('jeux')">Jeux</button>
+            <button class="tab-btn" onclick="switchTab('clips')">Clips</button>
+        </div>
         
         <!-- Firebase est déjà configuré automatiquement! -->
 
+        <!-- Tab Content: Jeux -->
+        <div class="tab-content active" id="tab-jeux">
+        
         <!-- Connection Status -->
         <div class="connection-status" id="connectionStatus">
             <span class="status-indicator disconnected">●</span>
@@ -638,6 +1040,75 @@ h1 {
                 </div>
             </div>
         </div>
+        
+        </div>
+        <!-- End Tab Content: Jeux -->
+        
+        <!-- Tab Content: Clips -->
+        <div class="tab-content" id="tab-clips">
+            <div class="clips-container">
+                <!-- Upload Section -->
+                <div class="clips-upload-section">
+                    <h2>📤 Upload un Clip</h2>
+                    
+                    <div class="upload-form">
+                        <div class="form-group">
+                            <label for="clipTitle">Titre du clip</label>
+                            <input type="text" id="clipTitle" class="form-control" placeholder="Ex: Mon epic pentakill" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clipPseudo">Votre pseudo (optionnel)</label>
+                            <input type="text" id="clipPseudo" class="form-control" placeholder="Ex: Powertwo" />
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clipUrl">Lien du clip (YouTube, Twitch, etc.)</label>
+                                <input type="url" id="clipUrl" class="form-control" placeholder="https://youtube.com/watch?v=..." />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clipGames">Jeu(x) associé(s)</label>
+                                <select id="clipGames" class="form-control" multiple>
+                                    <!-- Options dynamically populated -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="uploadClip()">Uploader le clip</button>
+                        <div class="message" id="clipMessage"></div>
+                    </div>
+                    
+                    <div class="tutorial-box">
+                        <h3>💡 Comment obtenir le lien d'une vidéo ?</h3>
+                        <ul>
+                            <li><strong>YouTube:</strong> Cliquez sur "Partager" sous la vidéo, puis copiez le lien (ex: https://youtube.com/watch?v=...)</li>
+                            <li><strong>Twitch:</strong> Cliquez sur "Partager" sur le clip, puis copiez le lien (ex: https://clips.twitch.tv/...)</li>
+                            <li><strong>Autres sites:</strong> Copiez simplement l'URL de la page de la vidéo depuis la barre d'adresse</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Gallery Section -->
+                <div class="clips-gallery-section">
+                    <div class="gallery-header">
+                        <h2>🎬 Tous les Clips</h2>
+                        <span id="clipCount" style="color: var(--color-text-secondary); font-size: var(--font-size-base);">0 clips</span>
+                    </div>
+                    
+                    <div class="filter-tags" id="filterTags">
+                        <!-- Tags dynamically populated -->
+                    </div>
+                    
+                    <div class="clips-grid" id="clipsGrid">
+                        <!-- Clips dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Tab Content: Clips -->
+        
     </div>
 
     <script>
@@ -653,6 +1124,17 @@ h1 {
             projectId: "dgdgames-1750c"
         };
 
+        // Current active tab
+        let activeTab = 'jeux';
+        
+        // Authentication state
+        let isAdmin = false;
+        let currentUser = null;
+        
+        // Clips data
+        let clips = [];
+        let activeFilter = null;
+        
         // Données initiales - avec tirets pour affichage
         let players = ['Mouki', 'Powertwo', 'Tao', 'Sordax', 'Babour', 'Teklon', 'Baylie'];
         let games = [
@@ -686,6 +1168,437 @@ h1 {
         // État d'édition
         let editingGame = null;
         let editingPlayer = null;
+        let editingClip = null;
+        
+        // Tab switching
+        function switchTab(tabName) {
+            activeTab = tabName;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Load clips data if switching to clips tab
+            if (tabName === 'clips') {
+                populateClipGameSelect();
+                renderClipsGallery();
+                renderFilterTags();
+            }
+        }
+        
+        // Populate game select for clips
+        function populateClipGameSelect() {
+            const select = document.getElementById('clipGames');
+            select.innerHTML = '';
+            
+            games.forEach(game => {
+                const option = document.createElement('option');
+                option.value = game;
+                option.textContent = game;
+                select.appendChild(option);
+            });
+        }
+        
+        // Show login modal
+        function showLoginModal() {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.innerHTML = `
+                <div class="modal-content">
+                    <h2>🔐 Connexion Admin</h2>
+                    <div class="form-group">
+                        <label for="loginUsername">Login</label>
+                        <input type="text" id="loginUsername" class="form-control" placeholder="Votre login" />
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Mot de passe</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Votre mot de passe" />
+                    </div>
+                    <div class="message" id="loginMessage"></div>
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="closeLoginModal()">Annuler</button>
+                        <button class="btn" onclick="attemptLogin()">Se connecter</button>
+                    </div>
+                </div>
+            `;
+            
+            overlay.onclick = (e) => {
+                if (e.target === overlay) {
+                    closeLoginModal();
+                }
+            };
+            
+            document.body.appendChild(overlay);
+            document.getElementById('loginUsername').focus();
+            
+            // Handle Enter key
+            document.getElementById('loginUsername').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('loginPassword').focus();
+                }
+            });
+            
+            document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+        }
+        
+        // Close login modal
+        function closeLoginModal() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        // Attempt login
+        function attemptLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            // Check credentials
+            if (username === 'Powertwo' && password === 'DGD') {
+                isAdmin = true;
+                currentUser = username;
+                
+                // Update UI
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'flex';
+                document.getElementById('userName').textContent = username;
+                
+                closeLoginModal();
+                
+                // Refresh clips gallery to show admin buttons
+                if (activeTab === 'clips') {
+                    renderClipsGallery();
+                }
+            } else {
+                const messageEl = document.getElementById('loginMessage');
+                messageEl.textContent = 'Identifiants incorrects';
+                messageEl.className = 'message error show';
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // Logout
+        function logout() {
+            isAdmin = false;
+            currentUser = null;
+            
+            // Update UI
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('userInfo').style.display = 'none';
+            
+            // Refresh clips gallery to hide admin buttons
+            if (activeTab === 'clips') {
+                renderClipsGallery();
+            }
+        }
+        
+        // Upload clip
+        function uploadClip() {
+            const title = document.getElementById('clipTitle').value.trim();
+            const url = document.getElementById('clipUrl').value.trim();
+            const pseudo = document.getElementById('clipPseudo').value.trim() || 'Anonyme';
+            const select = document.getElementById('clipGames');
+            const selectedGames = Array.from(select.selectedOptions).map(opt => opt.value);
+            
+            // Validation
+            if (!title) {
+                showMessage('clipMessage', 'Veuillez entrer un titre pour le clip', 'error');
+                return;
+            }
+            
+            if (!url) {
+                showMessage('clipMessage', 'Veuillez entrer un lien pour le clip', 'error');
+                return;
+            }
+            
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                showMessage('clipMessage', 'Le lien doit commencer par http:// ou https://', 'error');
+                return;
+            }
+            
+            if (selectedGames.length === 0) {
+                showMessage('clipMessage', 'Veuillez sélectionner au moins un jeu', 'error');
+                return;
+            }
+            
+            // Create clip object
+            const clip = {
+                id: Date.now().toString(),
+                titre: title,
+                url: url,
+                pseudo: pseudo,
+                jeux: selectedGames,
+                dateAjout: Date.now()
+            };
+            
+            // Add to clips array
+            clips.push(clip);
+            
+            // Save to Firebase
+            saveClipsToFirebase();
+            
+            // Clear form
+            document.getElementById('clipTitle').value = '';
+            document.getElementById('clipUrl').value = '';
+            document.getElementById('clipPseudo').value = '';
+            select.selectedIndex = -1;
+            
+            // Show success message
+            showMessage('clipMessage', `Clip "${title}" ajouté avec succès !`, 'success');
+            
+            // Refresh gallery
+            renderClipsGallery();
+            renderFilterTags();
+        }
+        
+        // Get YouTube thumbnail
+        function getVideoThumbnail(url) {
+            // YouTube
+            const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/);
+            if (youtubeMatch) {
+                return `https://img.youtube.com/vi/${youtubeMatch[1]}/mqdefault.jpg`;
+            }
+            
+            // Twitch clip
+            const twitchMatch = url.match(/clips\.twitch\.tv\/([^?]+)/);
+            if (twitchMatch) {
+                return null; // Twitch thumbnails require API
+            }
+            
+            return null;
+        }
+        
+        // Render clips gallery
+        function renderClipsGallery() {
+            const grid = document.getElementById('clipsGrid');
+            const countEl = document.getElementById('clipCount');
+            
+            // Filter clips
+            let filteredClips = clips;
+            if (activeFilter) {
+                filteredClips = clips.filter(clip => clip.jeux.includes(activeFilter));
+            }
+            
+            // Update count
+            countEl.textContent = `${filteredClips.length} clip${filteredClips.length !== 1 ? 's' : ''}`;
+            
+            // Empty state
+            if (filteredClips.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">🎬</div>
+                        <div class="empty-state-text">${activeFilter ? 'Aucun clip pour ce jeu' : 'Aucun clip pour le moment'}</div>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                            ${activeFilter ? 'Essayez un autre jeu ou uploadez le premier clip !' : 'Uploadez votre premier clip pour commencer !'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by date (newest first)
+            filteredClips.sort((a, b) => b.dateAjout - a.dateAjout);
+            
+            // Render clips
+            grid.innerHTML = filteredClips.map(clip => {
+                const thumbnail = getVideoThumbnail(clip.url);
+                
+                return `
+                    <div class="clip-card" onclick="watchClip('${clip.id}')">
+                        <div class="clip-thumbnail" style="${thumbnail ? `background-image: url('${thumbnail}');` : ''} background-size: cover; background-position: center;">
+                            ${!thumbnail ? '🎮' : ''}
+                        </div>
+                        <div class="clip-info">
+                            <div class="clip-title">${escapeHtml(clip.titre)}</div>
+                            ${clip.pseudo ? `<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-8);">Par ${escapeHtml(clip.pseudo)}</div>` : ''}
+                            <div class="clip-tags">
+                                ${clip.jeux.map(jeu => `<span class="clip-tag">${escapeHtml(jeu)}</span>`).join('')}
+                            </div>
+                            <div class="clip-actions" onclick="event.stopPropagation();">
+                                <button class="btn-small btn-watch" onclick="watchClip('${clip.id}')">▶ Regarder</button>
+                                ${isAdmin ? `
+                                    <button class="btn-small btn-edit" onclick="editClip('${clip.id}')">✏️</button>
+                                    <button class="btn-small btn-delete" onclick="deleteClip('${clip.id}')">🗑️</button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Render filter tags
+        function renderFilterTags() {
+            const container = document.getElementById('filterTags');
+            
+            // Get all unique games from clips
+            const gameCount = {};
+            clips.forEach(clip => {
+                clip.jeux.forEach(jeu => {
+                    gameCount[jeu] = (gameCount[jeu] || 0) + 1;
+                });
+            });
+            
+            // Sort games alphabetically
+            const sortedGames = Object.keys(gameCount).sort();
+            
+            // Render tags
+            let html = `
+                <button class="tag-filter ${!activeFilter ? 'active' : ''}" onclick="filterByGame(null)">
+                    Tous les clips
+                    <span class="tag-count">${clips.length}</span>
+                </button>
+            `;
+            
+            sortedGames.forEach(game => {
+                html += `
+                    <button class="tag-filter ${activeFilter === game ? 'active' : ''}" onclick="filterByGame('${escapeHtml(game)}')">
+                        ${escapeHtml(game)}
+                        <span class="tag-count">${gameCount[game]}</span>
+                    </button>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Filter by game
+        function filterByGame(game) {
+            activeFilter = game;
+            renderClipsGallery();
+            renderFilterTags();
+        }
+        
+        // Watch clip
+        function watchClip(clipId) {
+            const clip = clips.find(c => c.id === clipId);
+            if (clip) {
+                window.open(clip.url, '_blank');
+            }
+        }
+        
+        // Edit clip
+        function editClip(clipId) {
+            if (!isAdmin) {
+                alert('Vous devez être connecté en tant qu\'admin pour modifier un clip');
+                return;
+            }
+            
+            const clip = clips.find(c => c.id === clipId);
+            if (!clip) return;
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.innerHTML = `
+                <div class="modal-content">
+                    <h2>✏️ Modifier le Clip</h2>
+                    <div class="form-group">
+                        <label for="editClipTitle">Titre</label>
+                        <input type="text" id="editClipTitle" class="form-control" value="${escapeHtml(clip.titre)}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editClipGames">Jeu(x) associé(s)</label>
+                        <select id="editClipGames" class="form-control" multiple>
+                            ${games.map(game => `<option value="${escapeHtml(game)}" ${clip.jeux.includes(game) ? 'selected' : ''}>${escapeHtml(game)}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="closeEditModal()">Annuler</button>
+                        <button class="btn" onclick="saveClipEdit('${clipId}')">Sauvegarder</button>
+                    </div>
+                </div>
+            `;
+            
+            overlay.onclick = (e) => {
+                if (e.target === overlay) {
+                    closeEditModal();
+                }
+            };
+            
+            document.body.appendChild(overlay);
+            document.getElementById('editClipTitle').focus();
+        }
+        
+        // Close edit modal
+        function closeEditModal() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        // Save clip edit
+        function saveClipEdit(clipId) {
+            const title = document.getElementById('editClipTitle').value.trim();
+            const select = document.getElementById('editClipGames');
+            const selectedGames = Array.from(select.selectedOptions).map(opt => opt.value);
+            
+            if (!title) {
+                alert('Le titre ne peut pas être vide');
+                return;
+            }
+            
+            if (selectedGames.length === 0) {
+                alert('Veuillez sélectionner au moins un jeu');
+                return;
+            }
+            
+            const clip = clips.find(c => c.id === clipId);
+            if (clip) {
+                clip.titre = title;
+                clip.jeux = selectedGames;
+                
+                saveClipsToFirebase();
+                closeEditModal();
+                renderClipsGallery();
+                renderFilterTags();
+            }
+        }
+        
+        // Delete clip
+        function deleteClip(clipId) {
+            if (!isAdmin) {
+                alert('Vous devez être connecté en tant qu\'admin pour supprimer un clip');
+                return;
+            }
+            
+            const clip = clips.find(c => c.id === clipId);
+            if (!clip) return;
+            
+            if (!confirm(`Êtes-vous sûr de vouloir supprimer le clip "${clip.titre}" ?`)) {
+                return;
+            }
+            
+            const index = clips.findIndex(c => c.id === clipId);
+            if (index !== -1) {
+                clips.splice(index, 1);
+                saveClipsToFirebase();
+                renderClipsGallery();
+                renderFilterTags();
+            }
+        }
+        
+        // HTML escape utility
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         // Helper functions for Firebase key conversion
         function toFirebaseKey(name) {
@@ -1092,6 +2005,19 @@ h1 {
                 addPlayer();
             }
         });
+        
+        // Clip form enter key handling
+        document.getElementById('clipTitle').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                uploadClip();
+            }
+        });
+        
+        document.getElementById('clipUrl').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                uploadClip();
+            }
+        });
 
         // Check Firebase configuration on load - AUTO-CONNECT
         function checkFirebaseConfig() {
@@ -1176,6 +2102,19 @@ h1 {
                     renderTable();
                 }
             });
+            
+            // Listen for clips changes
+            database.ref('clips').on('value', (snapshot) => {
+                if (isInitializing || !hasLoadedInitialData) return;
+                const data = snapshot.val();
+                if (data) {
+                    clips = Object.values(data);
+                    if (activeTab === 'clips') {
+                        renderClipsGallery();
+                        renderFilterTags();
+                    }
+                }
+            });
         }
 
         // Load data from Firebase
@@ -1190,6 +2129,11 @@ h1 {
                         // Load existing data from Firebase
                         players.length = 0;
                         players.push(...data.players);
+                        
+                        // Load clips
+                        if (data.clips) {
+                            clips = Object.values(data.clips);
+                        }
                         
                         games.length = 0;
                         games.push(...data.games);
@@ -1264,6 +2208,18 @@ h1 {
         function saveCheckedStateToFirebase() {
             if (!isFirebaseConfigured) return;
             database.ref('checkedState').set(checkedState);
+        }
+        
+        // Save clips to Firebase
+        function saveClipsToFirebase() {
+            if (!isFirebaseConfigured) return;
+            
+            const clipsObject = {};
+            clips.forEach(clip => {
+                clipsObject[clip.id] = clip;
+            });
+            
+            database.ref('clips').set(clipsObject);
         }
 
         // Initialiser l'application
