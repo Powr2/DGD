@@ -1754,9 +1754,90 @@ select[multiple] option:checked {
             'Warframe'
         ];
         
-        // RAWG API Configuration
-        const RAWG_API_BASE = 'https://api.rawg.io/api';
-        const RAWG_SEARCH_ENDPOINT = '/games';
+        // Predefined mapping for existing games
+        const EXISTING_GAMES_IMAGES = {
+            'AMQ - Skribblio - Gartic - Memebuddy': 'https://i.ytimg.com/vi/yA5RYa-kx0Y/maxresdefault.jpg',
+            'APEX Legends': 'https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg',
+            'ARAM': 'https://cdn.akamai.steamstatic.com/steam/apps/1349230/header.jpg',
+            'Arena': 'https://cdn.akamai.steamstatic.com/steam/apps/1349230/header.jpg',
+            'Battlefield 6 Redsec': 'https://cdn.akamai.steamstatic.com/steam/apps/1517690/header.jpg',
+            'CIV 6': 'https://cdn.akamai.steamstatic.com/steam/apps/289070/header.jpg',
+            'COD Zombies': 'https://cdn.akamai.steamstatic.com/steam/apps/2144673/header.jpg',
+            'Crusader Kings 3': 'https://cdn.akamai.steamstatic.com/steam/apps/1158310/header.jpg',
+            'First Class Trouble': 'https://cdn.akamai.steamstatic.com/steam/apps/884570/header.jpg',
+            'GTA V': 'https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg',
+            'LOL': 'https://cdn.akamai.steamstatic.com/steam/apps/1349230/header.jpg',
+            'Lethal Company': 'https://cdn.akamai.steamstatic.com/steam/apps/1966720/header.jpg',
+            'Marvel Rivals': 'https://cdn.akamai.steamstatic.com/steam/apps/2767530/header.jpg',
+            'Overwatch 2': 'https://cdn.akamai.steamstatic.com/steam/apps/2357570/header.jpg',
+            'PokeMMO': 'https://i.ytimg.com/vi/qQhIhzXgZX0/maxresdefault.jpg',
+            'REPO': 'https://cdn.akamai.steamstatic.com/steam/apps/2236620/header.jpg',
+            'Sea of Thieves': 'https://cdn.akamai.steamstatic.com/steam/apps/1172620/header.jpg',
+            'Shape of Dreams': 'https://cdn.akamai.steamstatic.com/steam/apps/2318250/header.jpg',
+            'Supervive': 'https://cdn.akamai.steamstatic.com/steam/apps/2505890/header.jpg',
+            'The FINALS': 'https://cdn.akamai.steamstatic.com/steam/apps/2073850/header.jpg',
+            'Valorant - CS2': 'https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg',
+            'Warframe': 'https://cdn.akamai.steamstatic.com/steam/apps/230410/header.jpg'
+        };
+        
+        // Local games database with images
+        const LOCAL_GAMES_DATABASE = [
+            { name: 'League of Legends', aliases: ['LOL', 'League', 'LoL'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1349230/header.jpg' },
+            { name: 'Valorant', aliases: ['Val', 'Valorant'], image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg' },
+            { name: 'Counter-Strike 2', aliases: ['CS2', 'CS', 'Counter-Strike'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg' },
+            { name: 'Fortnite', aliases: ['Fortnite', 'Fortnite BR'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/286200/header.jpg' },
+            { name: 'GTA V', aliases: ['GTA 5', 'GTA5', 'Grand Theft Auto'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg' },
+            { name: 'Minecraft', aliases: ['Minecraft', 'MC'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/393370/header.jpg' },
+            { name: 'Apex Legends', aliases: ['Apex', 'Apex Legends'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg' },
+            { name: 'DOTA 2', aliases: ['DOTA', 'Dota 2'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg' },
+            { name: 'Overwatch 2', aliases: ['OW2', 'Overwatch'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/2357570/header.jpg' },
+            { name: 'Crusader Kings 3', aliases: ['CK3', 'Crusader Kings'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1158310/header.jpg' },
+            { name: 'Civilization 6', aliases: ['Civ 6', 'CIV 6', 'Civilization'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/289070/header.jpg' },
+            { name: 'Elden Ring', aliases: ['Elden', 'Elden Ring'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg' },
+            { name: 'Dark Souls III', aliases: ['Dark Souls', 'DS3'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/374320/header.jpg' },
+            { name: 'Call of Duty', aliases: ['COD', 'Call of Duty'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1938090/header.jpg' },
+            { name: 'Roblox', aliases: ['Roblox'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1038000/header.jpg' },
+            { name: 'Among Us', aliases: ['Among Us'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/945360/header.jpg' },
+            { name: 'Fall Guys', aliases: ['Fall Guys'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1097150/header.jpg' },
+            { name: 'Rocket League', aliases: ['Rocket League', 'RL'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/252950/header.jpg' },
+            { name: 'Terraria', aliases: ['Terraria'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/105600/header.jpg' },
+            { name: 'Stardew Valley', aliases: ['Stardew', 'Stardew Valley'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg' },
+            { name: 'Hades', aliases: ['Hades'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg' },
+            { name: 'Hollow Knight', aliases: ['Hollow Knight'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg' },
+            { name: 'Celeste', aliases: ['Celeste'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/504230/header.jpg' },
+            { name: 'Dead by Daylight', aliases: ['DBD', 'Dead by Daylight'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/381210/header.jpg' },
+            { name: 'PUBG', aliases: ['PUBG', 'PlayerUnknown'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg' },
+            { name: 'Rainbow Six Siege', aliases: ['R6', 'Rainbow Six', 'Siege'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg' },
+            { name: 'Warframe', aliases: ['Warframe'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/230410/header.jpg' },
+            { name: 'Path of Exile', aliases: ['POE', 'Path of Exile'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/238960/header.jpg' },
+            { name: 'Lost Ark', aliases: ['Lost Ark'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1599340/header.jpg' },
+            { name: 'World of Warcraft', aliases: ['WOW', 'WoW', 'World of Warcraft'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1003800/header.jpg' },
+            { name: 'Final Fantasy XIV', aliases: ['FFXIV', 'FF14', 'Final Fantasy'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/39210/header.jpg' },
+            { name: 'Elder Scrolls Online', aliases: ['ESO', 'Elder Scrolls'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/306130/header.jpg' },
+            { name: 'Sea of Thieves', aliases: ['Sea of Thieves', 'SOT'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1172620/header.jpg' },
+            { name: 'Rust', aliases: ['Rust'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/252490/header.jpg' },
+            { name: 'ARK', aliases: ['ARK', 'ARK Survival'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/346110/header.jpg' },
+            { name: 'Valheim', aliases: ['Valheim'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg' },
+            { name: 'Phasmophobia', aliases: ['Phasmophobia'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/739630/header.jpg' },
+            { name: 'Lethal Company', aliases: ['Lethal Company'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1966720/header.jpg' },
+            { name: 'Team Fortress 2', aliases: ['TF2', 'Team Fortress'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg' },
+            { name: 'Payday 2', aliases: ['Payday', 'Payday 2'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/218620/header.jpg' },
+            { name: 'Left 4 Dead 2', aliases: ['L4D2', 'Left 4 Dead'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/550/header.jpg' },
+            { name: 'Portal 2', aliases: ['Portal', 'Portal 2'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/620/header.jpg' },
+            { name: 'Half-Life', aliases: ['Half-Life', 'HL'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/70/header.jpg' },
+            { name: 'Baldurs Gate 3', aliases: ['BG3', 'Baldurs Gate'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg' },
+            { name: 'Cyberpunk 2077', aliases: ['Cyberpunk', 'CP2077'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg' },
+            { name: 'The Witcher 3', aliases: ['Witcher', 'Witcher 3'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg' },
+            { name: 'Red Dead Redemption 2', aliases: ['RDR2', 'Red Dead'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg' },
+            { name: 'God of War', aliases: ['God of War', 'GOW'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1593500/header.jpg' },
+            { name: 'Spider-Man', aliases: ['Spider-Man', 'Spiderman'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1817070/header.jpg' },
+            { name: 'Hogwarts Legacy', aliases: ['Hogwarts', 'Harry Potter'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/990080/header.jpg' },
+            { name: 'Starfield', aliases: ['Starfield'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1716740/header.jpg' },
+            { name: 'Palworld', aliases: ['Palworld'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg' },
+            { name: 'Tekken 8', aliases: ['Tekken', 'Tekken 8'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1778820/header.jpg' },
+            { name: 'Street Fighter 6', aliases: ['SF6', 'Street Fighter'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1364780/header.jpg' },
+            { name: 'Mortal Kombat', aliases: ['MK', 'Mortal Kombat'], image: 'https://cdn.akamai.steamstatic.com/steam/apps/1971870/header.jpg' }
+        ];
         
         // Game images cache (stored in memory)
         let gameImagesCache = {};
@@ -2397,7 +2478,7 @@ select[multiple] option:checked {
             }, 3000);
         }
 
-        // Search games from RAWG API
+        // Search games from local database
         function searchGames(query) {
             const searchResults = document.getElementById('searchResults');
             
@@ -2420,50 +2501,47 @@ select[multiple] option:checked {
             // Debounce the search
             searchDebounceTimer = setTimeout(() => {
                 performGameSearch(query.trim());
-            }, 300);
+            }, 200);
         }
         
-        async function performGameSearch(query) {
+        function performGameSearch(query) {
             const searchResults = document.getElementById('searchResults');
+            const queryLower = query.toLowerCase();
             
-            try {
-                const response = await fetch(`${RAWG_API_BASE}${RAWG_SEARCH_ENDPOINT}?search=${encodeURIComponent(query)}&page_size=10`);
-                
-                if (!response.ok) {
-                    throw new Error('API request failed');
-                }
-                
-                const data = await response.json();
-                currentSearchResults = data.results || [];
-                
-                if (currentSearchResults.length === 0) {
-                    searchResults.innerHTML = '<div class="search-empty">❌ Aucun jeu trouvé</div>';
-                    return;
-                }
-                
-                // Render results
-                searchResults.innerHTML = currentSearchResults.map((game, index) => {
-                    const year = game.released ? new Date(game.released).getFullYear() : '';
-                    const imageUrl = game.background_image || '';
-                    
-                    return `
-                        <div class="search-result-item" data-index="${index}" onclick="selectSearchResult(${index})">
-                            ${imageUrl ? 
-                                `<img src="${imageUrl}" alt="${escapeHtml(game.name)}" class="search-result-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` :
-                                ''}
-                            <div class="search-result-image" style="${imageUrl ? 'display:none;' : ''}">🎮</div>
-                            <div class="search-result-info">
-                                <div class="search-result-name">${escapeHtml(game.name)}</div>
-                                ${year ? `<div class="search-result-year">${year}</div>` : ''}
-                            </div>
+            // Search in local database
+            currentSearchResults = LOCAL_GAMES_DATABASE.filter(game => {
+                // Check if query matches name or any alias
+                const matchesName = game.name.toLowerCase().includes(queryLower);
+                const matchesAlias = game.aliases.some(alias => alias.toLowerCase().includes(queryLower));
+                return matchesName || matchesAlias;
+            }).slice(0, 10); // Limit to 10 results
+            
+            if (currentSearchResults.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="search-empty">❌ Aucun jeu trouvé</div>
+                    <div class="search-result-item" onclick="addCustomGame('${escapeHtml(query)}')">
+                        <div class="search-result-image">➕</div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">Ajouter "${escapeHtml(query)}" manuellement</div>
                         </div>
-                    `;
-                }).join('');
-                
-            } catch (error) {
-                console.error('Error searching games:', error);
-                searchResults.innerHTML = '<div class="search-empty">⚠️ Erreur lors de la recherche</div>';
+                    </div>
+                `;
+                return;
             }
+            
+            // Render results
+            searchResults.innerHTML = currentSearchResults.map((game, index) => {
+                return `
+                    <div class="search-result-item" data-index="${index}" onclick="selectSearchResult(${index})">
+                        <img src="${game.image}" alt="${escapeHtml(game.name)}" class="search-result-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="search-result-image" style="display:none;">🎮</div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${escapeHtml(game.name)}</div>
+                            ${game.aliases.length > 0 ? `<div class="search-result-year">${game.aliases.slice(0, 2).join(', ')}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
         
         function selectSearchResult(index) {
@@ -2475,15 +2553,16 @@ select[multiple] option:checked {
             // Check if game already exists
             if (games.includes(gameName)) {
                 showMessage('gameMessage', 'Ce jeu existe déjà', 'error');
+                document.getElementById('searchResults').style.display = 'none';
                 return;
             }
             
             // Cache the image
-            if (game.background_image) {
+            if (game.image) {
                 gameImagesCache[gameName] = {
-                    imageUrl: game.background_image,
-                    rawgId: game.id,
-                    name: game.name
+                    imageUrl: game.image,
+                    name: game.name,
+                    aliases: game.aliases
                 };
                 saveGameImagesCacheToFirebase();
             }
@@ -2506,6 +2585,40 @@ select[multiple] option:checked {
             saveGamesToFirebase();
             saveCheckedStateToFirebase();
             showMessage('gameMessage', `${gameName} a été ajouté avec son image !`, 'success');
+        }
+        
+        function addCustomGame(gameName) {
+            gameName = sanitizeGameName(gameName.trim());
+            
+            if (!gameName) {
+                showMessage('gameMessage', 'Veuillez entrer un nom de jeu', 'error');
+                return;
+            }
+            
+            if (games.includes(gameName)) {
+                showMessage('gameMessage', 'Ce jeu existe déjà', 'error');
+                document.getElementById('searchResults').style.display = 'none';
+                return;
+            }
+            
+            // Add the game without image
+            games.push(gameName);
+            const firebaseKey = toFirebaseKey(gameName);
+            checkedState[firebaseKey] = {};
+            players.forEach(player => {
+                checkedState[firebaseKey][player] = false;
+            });
+            
+            // Clear search
+            document.getElementById('newGame').value = '';
+            document.getElementById('searchResults').style.display = 'none';
+            currentSearchResults = [];
+            
+            renderTable();
+            updateStats();
+            saveGamesToFirebase();
+            saveCheckedStateToFirebase();
+            showMessage('gameMessage', `${gameName} a été ajouté !`, 'success');
         }
         
         function handleSearchKeydown(event) {
@@ -2557,47 +2670,40 @@ select[multiple] option:checked {
             }
         });
         
-        // Fetch game image from RAWG API
-        async function fetchGameImage(gameName) {
+        // Fetch game image from local database
+        function fetchGameImage(gameName) {
             // Check cache first
             if (gameImagesCache[gameName]) {
                 return gameImagesCache[gameName].imageUrl;
             }
             
-            try {
-                const response = await fetch(`${RAWG_API_BASE}${RAWG_SEARCH_ENDPOINT}?search=${encodeURIComponent(gameName)}&page_size=1`);
-                
-                if (!response.ok) {
-                    return null;
-                }
-                
-                const data = await response.json();
-                
-                if (data.results && data.results.length > 0) {
-                    const game = data.results[0];
-                    const imageUrl = game.background_image;
-                    
-                    // Cache the result
-                    gameImagesCache[gameName] = {
-                        imageUrl: imageUrl,
-                        rawgId: game.id,
-                        name: game.name
-                    };
-                    saveGameImagesCacheToFirebase();
-                    
-                    return imageUrl;
-                }
-            } catch (error) {
-                console.error('Error fetching game image:', error);
+            // Search in local database
+            const gameNameLower = gameName.toLowerCase();
+            const matchedGame = LOCAL_GAMES_DATABASE.find(game => {
+                const matchesName = game.name.toLowerCase() === gameNameLower;
+                const matchesAlias = game.aliases.some(alias => alias.toLowerCase() === gameNameLower);
+                return matchesName || matchesAlias;
+            });
+            
+            if (matchedGame) {
+                // Cache the result
+                gameImagesCache[gameName] = {
+                    imageUrl: matchedGame.image,
+                    name: matchedGame.name,
+                    aliases: matchedGame.aliases
+                };
+                saveGameImagesCacheToFirebase();
+                return matchedGame.image;
             }
             
             return null;
         }
         
         // Load all game images
-        async function loadAllGameImages() {
-            const promises = games.map(game => fetchGameImage(game));
-            await Promise.all(promises);
+        function loadAllGameImages() {
+            games.forEach(game => {
+                fetchGameImage(game);
+            });
             renderTable();
             if (activeTab === 'random') {
                 initializeRandomWheel();
@@ -3195,7 +3301,7 @@ select[multiple] option:checked {
                     isInitializing = false;
                     hasLoadedInitialData = true;
                     
-                    // Load game images cache
+                    // Load game images cache and link existing games
                     loadGameImagesCacheFromFirebase();
                 })
                 .catch((error) => {
@@ -3264,21 +3370,50 @@ select[multiple] option:checked {
                     const data = snapshot.val();
                     if (data) {
                         gameImagesCache = data;
-                        renderTable();
-                        if (activeTab === 'random') {
-                            initializeRandomWheel();
-                        }
-                        if (activeTab === 'clips') {
-                            renderFilterTags();
-                        }
                     } else {
-                        // No cache exists, fetch images for existing games
-                        loadAllGameImages();
+                        // No cache exists, initialize with predefined images
+                        gameImagesCache = {};
+                    }
+                    
+                    // Add predefined images for existing games
+                    linkExistingGamesToImages();
+                    
+                    renderTable();
+                    if (activeTab === 'random') {
+                        initializeRandomWheel();
+                    }
+                    if (activeTab === 'clips') {
+                        renderFilterTags();
                     }
                 })
                 .catch((error) => {
                     console.error('Error loading game images cache:', error);
                 });
+        }
+        
+        // Link existing games to their images
+        function linkExistingGamesToImages() {
+            let hasChanges = false;
+            
+            games.forEach(game => {
+                // Check if this game has a predefined image
+                if (EXISTING_GAMES_IMAGES[game]) {
+                    // Add or update the cache
+                    if (!gameImagesCache[game] || gameImagesCache[game].imageUrl !== EXISTING_GAMES_IMAGES[game]) {
+                        gameImagesCache[game] = {
+                            imageUrl: EXISTING_GAMES_IMAGES[game],
+                            name: game,
+                            aliases: [game]
+                        };
+                        hasChanges = true;
+                    }
+                }
+            });
+            
+            // Save to Firebase if there were changes
+            if (hasChanges) {
+                saveGameImagesCacheToFirebase();
+            }
         }
 
         // Random Wheel Functions
