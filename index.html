@@ -930,6 +930,131 @@ select[multiple] option:checked {
     margin-bottom: var(--space-8);
 }
 
+/* Search Results Dropdown */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    box-shadow: var(--shadow-lg);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: var(--space-4);
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-12);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-standard);
+    border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover,
+.search-result-item.selected {
+    background-color: var(--color-secondary);
+}
+
+.search-result-image {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);
+    flex-shrink: 0;
+}
+
+.search-result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-name {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-year {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.search-loading,
+.search-empty {
+    padding: var(--space-16);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* Game Images in Table */
+.game-name-with-image {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+}
+
+.game-image-small {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);
+    flex-shrink: 0;
+}
+
+.game-image-fallback {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Game Images in Wheel */
+.wheel-game-item-image {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);
+    flex-shrink: 0;
+    margin-right: var(--space-8);
+}
+
+.game-checkbox-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Clip Tag Images */
+.tag-game-image {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    margin-right: var(--space-6);
+}
+
 /* Login Modal */
 .modal-overlay {
     position: fixed;
@@ -968,6 +1093,304 @@ select[multiple] option:checked {
 
 .modal-actions .btn {
     flex: 1;
+}
+
+/* Random Tab Styles */
+.random-container {
+    display: grid;
+    gap: var(--space-24);
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+}
+
+.random-selection-section {
+    background-color: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-md);
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.random-selection-section h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-16);
+    color: var(--color-text);
+}
+
+.game-count {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+    padding: var(--space-12);
+    background-color: var(--color-bg-1);
+    border-radius: var(--radius-base);
+    text-align: center;
+}
+
+.game-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-bottom: var(--space-24);
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--space-8);
+}
+
+.game-checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.game-checkbox-item:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-primary);
+    transform: translateX(4px);
+}
+
+.game-checkbox-item.selected {
+    background-color: var(--color-bg-1);
+    border-color: var(--color-primary);
+    border-width: 2px;
+}
+
+.game-checkbox-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: var(--space-12);
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.game-checkbox-item label {
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    flex: 1;
+}
+
+.btn-spin {
+    width: 100%;
+    padding: var(--space-16) var(--space-24);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    box-shadow: 0 4px 12px rgba(var(--color-teal-500-rgb), 0.3);
+}
+
+.btn-spin:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(var(--color-teal-500-rgb), 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-spin:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--color-secondary);
+    box-shadow: none;
+}
+
+.wheel-section {
+    background-color: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-md);
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-24);
+}
+
+.wheel-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    color: var(--color-error);
+    z-index: 10;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+#wheelCanvas {
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 0 0 8px var(--color-surface);
+    transition: transform 0.1s ease-out;
+}
+
+.wheel-result {
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-display {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    padding: var(--space-20) var(--space-32);
+    background-color: var(--color-bg-1);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-primary);
+    animation: resultPop 0.5s ease-out;
+}
+
+@keyframes resultPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.history-section {
+    background-color: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-md);
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.history-section h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-16);
+    color: var(--color-text);
+}
+
+.spin-history {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: var(--space-12);
+    background-color: var(--color-background);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-primary);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.history-item-game {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+
+.history-item-time {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-4);
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-primary);
+    position: absolute;
+    animation: confettiFall 3s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .random-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    .random-selection-section {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    
+    .wheel-section {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .history-section {
+        grid-column: 1;
+        grid-row: 3;
+    }
+    
+    .wheel-container {
+        width: 400px;
+        height: 400px;
+    }
+    
+    #wheelCanvas {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wheel-container {
+        width: 300px;
+        height: 300px;
+    }
+    
+    #wheelCanvas {
+        width: 300px;
+        height: 300px;
+    }
 }
 
 /* Video Modal Styles */
@@ -1101,6 +1524,7 @@ select[multiple] option:checked {
         <div class="tab-navigation">
             <button class="tab-btn active" onclick="switchTab('jeux')">Jeux</button>
             <button class="tab-btn" onclick="switchTab('clips')">Clips</button>
+            <button class="tab-btn" onclick="switchTab('random')">Random</button>
         </div>
         
         <!-- Firebase est déjà configuré automatiquement! -->
@@ -1141,11 +1565,11 @@ select[multiple] option:checked {
             <div class="sidebar">
                 <div class="add-section">
                     <h2>Ajouter un Jeu</h2>
-                    <div class="form-group">
-                        <label for="newGame">Nom du jeu</label>
-                        <input type="text" id="newGame" placeholder="Ex: Fortnite">
+                    <div class="form-group" style="position: relative;">
+                        <label for="newGame">Rechercher un jeu</label>
+                        <input type="text" id="newGame" placeholder="Tapez pour rechercher..." autocomplete="off" oninput="searchGames(this.value)" onkeydown="handleSearchKeydown(event)">
+                        <div id="searchResults" class="search-results" style="display: none;"></div>
                     </div>
-                    <button class="btn" onclick="addGame()">Ajouter ce jeu</button>
                     <div class="message" id="gameMessage"></div>
                 </div>
 
@@ -1229,6 +1653,41 @@ select[multiple] option:checked {
         </div>
         <!-- End Tab Content: Clips -->
         
+        <!-- Tab Content: Random -->
+        <div class="tab-content" id="tab-random">
+            <div class="random-container">
+                <!-- Game Selection Section -->
+                <div class="random-selection-section">
+                    <h2>🎲 Sélectionnez les jeux pour la roue</h2>
+                    <div id="randomGameCount" class="game-count">0 jeux sélectionnés</div>
+                    <div class="game-checkboxes" id="randomGameCheckboxes">
+                        <!-- Dynamically populated -->
+                    </div>
+                    <button class="btn btn-spin" id="spinButton" onclick="spinWheel()" disabled>
+                        🎯 Lancer la roue
+                    </button>
+                </div>
+                
+                <!-- Wheel Section -->
+                <div class="wheel-section">
+                    <div class="wheel-container">
+                        <div class="wheel-pointer">▼</div>
+                        <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    </div>
+                    <div id="wheelResult" class="wheel-result"></div>
+                </div>
+                
+                <!-- History Section -->
+                <div class="history-section">
+                    <h3>📜 Historique des résultats</h3>
+                    <div id="spinHistory" class="spin-history">
+                        <div class="empty-state-text" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Aucun résultat pour le moment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Tab Content: Random -->
+        
     </div>
 
     <script>
@@ -1246,6 +1705,19 @@ select[multiple] option:checked {
 
         // Current active tab
         let activeTab = 'jeux';
+        
+        // Random wheel variables
+        let selectedGamesForWheel = [];
+        let wheelCanvas = null;
+        let wheelCtx = null;
+        let currentRotation = 0;
+        let isSpinning = false;
+        let spinHistory = [];
+        let wheelColors = [
+            '#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F',
+            '#DB4545', '#D2BA4C', '#964325', '#944454', '#13343B',
+            '#32B8C6', '#E6815F', '#21803D', '#7C3AED', '#C2410C'
+        ];
         
         // Authentication state
         let isAdmin = false;
@@ -1281,6 +1753,17 @@ select[multiple] option:checked {
             'Valorant - CS2',
             'Warframe'
         ];
+        
+        // RAWG API Configuration
+        const RAWG_API_BASE = 'https://api.rawg.io/api';
+        const RAWG_SEARCH_ENDPOINT = '/games';
+        
+        // Game images cache (stored in memory)
+        let gameImagesCache = {};
+        
+        // Search state
+        let searchDebounceTimer = null;
+        let currentSearchResults = [];
 
         // État des cases cochées (stocké en mémoire)
         let checkedState = {};
@@ -1311,6 +1794,11 @@ select[multiple] option:checked {
                 populateClipGameSelect();
                 renderClipsGallery();
                 renderFilterTags();
+            }
+            
+            // Load random wheel if switching to random tab
+            if (tabName === 'random') {
+                initializeRandomWheel();
             }
         }
         
@@ -1602,7 +2090,7 @@ select[multiple] option:checked {
             }).join('');
         }
         
-        // Render filter tags
+        // Render filter tags with images
         function renderFilterTags() {
             const container = document.getElementById('filterTags');
             
@@ -1626,8 +2114,14 @@ select[multiple] option:checked {
             `;
             
             sortedGames.forEach(game => {
+                const imageCache = gameImagesCache[game];
+                const imageHtml = imageCache && imageCache.imageUrl ? 
+                    `<img src="${imageCache.imageUrl}" alt="${escapeHtml(game)}" class="tag-game-image" onerror="this.style.display='none';" />` :
+                    '';
+                
                 html += `
                     <button class="tag-filter ${activeFilter === game ? 'active' : ''}" onclick="filterByGame('${escapeHtml(game)}')">
+                        ${imageHtml}
                         ${escapeHtml(game)}
                         <span class="tag-count">${gameCount[game]}</span>
                     </button>
@@ -1903,7 +2397,214 @@ select[multiple] option:checked {
             }, 3000);
         }
 
-        // Ajouter un jeu
+        // Search games from RAWG API
+        function searchGames(query) {
+            const searchResults = document.getElementById('searchResults');
+            
+            // Clear previous timer
+            if (searchDebounceTimer) {
+                clearTimeout(searchDebounceTimer);
+            }
+            
+            // Hide results if query is empty
+            if (!query || query.trim().length < 2) {
+                searchResults.style.display = 'none';
+                currentSearchResults = [];
+                return;
+            }
+            
+            // Show loading
+            searchResults.style.display = 'block';
+            searchResults.innerHTML = '<div class="search-loading">🔍 Recherche en cours...</div>';
+            
+            // Debounce the search
+            searchDebounceTimer = setTimeout(() => {
+                performGameSearch(query.trim());
+            }, 300);
+        }
+        
+        async function performGameSearch(query) {
+            const searchResults = document.getElementById('searchResults');
+            
+            try {
+                const response = await fetch(`${RAWG_API_BASE}${RAWG_SEARCH_ENDPOINT}?search=${encodeURIComponent(query)}&page_size=10`);
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const data = await response.json();
+                currentSearchResults = data.results || [];
+                
+                if (currentSearchResults.length === 0) {
+                    searchResults.innerHTML = '<div class="search-empty">❌ Aucun jeu trouvé</div>';
+                    return;
+                }
+                
+                // Render results
+                searchResults.innerHTML = currentSearchResults.map((game, index) => {
+                    const year = game.released ? new Date(game.released).getFullYear() : '';
+                    const imageUrl = game.background_image || '';
+                    
+                    return `
+                        <div class="search-result-item" data-index="${index}" onclick="selectSearchResult(${index})">
+                            ${imageUrl ? 
+                                `<img src="${imageUrl}" alt="${escapeHtml(game.name)}" class="search-result-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` :
+                                ''}
+                            <div class="search-result-image" style="${imageUrl ? 'display:none;' : ''}">🎮</div>
+                            <div class="search-result-info">
+                                <div class="search-result-name">${escapeHtml(game.name)}</div>
+                                ${year ? `<div class="search-result-year">${year}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+            } catch (error) {
+                console.error('Error searching games:', error);
+                searchResults.innerHTML = '<div class="search-empty">⚠️ Erreur lors de la recherche</div>';
+            }
+        }
+        
+        function selectSearchResult(index) {
+            if (index < 0 || index >= currentSearchResults.length) return;
+            
+            const game = currentSearchResults[index];
+            const gameName = sanitizeGameName(game.name);
+            
+            // Check if game already exists
+            if (games.includes(gameName)) {
+                showMessage('gameMessage', 'Ce jeu existe déjà', 'error');
+                return;
+            }
+            
+            // Cache the image
+            if (game.background_image) {
+                gameImagesCache[gameName] = {
+                    imageUrl: game.background_image,
+                    rawgId: game.id,
+                    name: game.name
+                };
+                saveGameImagesCacheToFirebase();
+            }
+            
+            // Add the game
+            games.push(gameName);
+            const firebaseKey = toFirebaseKey(gameName);
+            checkedState[firebaseKey] = {};
+            players.forEach(player => {
+                checkedState[firebaseKey][player] = false;
+            });
+            
+            // Clear search
+            document.getElementById('newGame').value = '';
+            document.getElementById('searchResults').style.display = 'none';
+            currentSearchResults = [];
+            
+            renderTable();
+            updateStats();
+            saveGamesToFirebase();
+            saveCheckedStateToFirebase();
+            showMessage('gameMessage', `${gameName} a été ajouté avec son image !`, 'success');
+        }
+        
+        function handleSearchKeydown(event) {
+            const searchResults = document.getElementById('searchResults');
+            if (searchResults.style.display === 'none') return;
+            
+            const items = searchResults.querySelectorAll('.search-result-item');
+            if (items.length === 0) return;
+            
+            let selectedIndex = -1;
+            items.forEach((item, index) => {
+                if (item.classList.contains('selected')) {
+                    selectedIndex = index;
+                }
+            });
+            
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                items.forEach(item => item.classList.remove('selected'));
+                selectedIndex = (selectedIndex + 1) % items.length;
+                items[selectedIndex].classList.add('selected');
+                items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                items.forEach(item => item.classList.remove('selected'));
+                selectedIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
+                items[selectedIndex].classList.add('selected');
+                items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            } else if (event.key === 'Enter') {
+                event.preventDefault();
+                if (selectedIndex >= 0) {
+                    selectSearchResult(selectedIndex);
+                } else if (items.length > 0) {
+                    selectSearchResult(0);
+                }
+            } else if (event.key === 'Escape') {
+                searchResults.style.display = 'none';
+                currentSearchResults = [];
+            }
+        }
+        
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            const searchResults = document.getElementById('searchResults');
+            const searchInput = document.getElementById('newGame');
+            
+            if (searchResults && !searchResults.contains(e.target) && e.target !== searchInput) {
+                searchResults.style.display = 'none';
+            }
+        });
+        
+        // Fetch game image from RAWG API
+        async function fetchGameImage(gameName) {
+            // Check cache first
+            if (gameImagesCache[gameName]) {
+                return gameImagesCache[gameName].imageUrl;
+            }
+            
+            try {
+                const response = await fetch(`${RAWG_API_BASE}${RAWG_SEARCH_ENDPOINT}?search=${encodeURIComponent(gameName)}&page_size=1`);
+                
+                if (!response.ok) {
+                    return null;
+                }
+                
+                const data = await response.json();
+                
+                if (data.results && data.results.length > 0) {
+                    const game = data.results[0];
+                    const imageUrl = game.background_image;
+                    
+                    // Cache the result
+                    gameImagesCache[gameName] = {
+                        imageUrl: imageUrl,
+                        rawgId: game.id,
+                        name: game.name
+                    };
+                    saveGameImagesCacheToFirebase();
+                    
+                    return imageUrl;
+                }
+            } catch (error) {
+                console.error('Error fetching game image:', error);
+            }
+            
+            return null;
+        }
+        
+        // Load all game images
+        async function loadAllGameImages() {
+            const promises = games.map(game => fetchGameImage(game));
+            await Promise.all(promises);
+            renderTable();
+            if (activeTab === 'random') {
+                initializeRandomWheel();
+            }
+        }
+        
+        // Ajouter un jeu (legacy function, now replaced by search)
         function addGame() {
             const input = document.getElementById('newGame');
             let gameName = input.value.trim();
@@ -1934,6 +2635,11 @@ select[multiple] option:checked {
             saveGamesToFirebase();
             saveCheckedStateToFirebase();
             showMessage('gameMessage', `${gameName} a été ajouté !`, 'success');
+            
+            // Fetch image for the new game
+            fetchGameImage(gameName).then(() => {
+                renderTable();
+            });
         }
 
         // Ajouter un joueur
@@ -2198,12 +2904,39 @@ select[multiple] option:checked {
             games.forEach(game => {
                 const tr = document.createElement('tr');
                 
-                // Première colonne : nom du jeu
+                // Première colonne : nom du jeu avec image
                 const tdGame = document.createElement('td');
+                
+                const gameContainer = document.createElement('div');
+                gameContainer.className = 'game-name-with-image';
+                
+                // Add game image
+                const imageCache = gameImagesCache[game];
+                if (imageCache && imageCache.imageUrl) {
+                    const img = document.createElement('img');
+                    img.src = imageCache.imageUrl;
+                    img.alt = game;
+                    img.className = 'game-image-small';
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('div');
+                        fallback.className = 'game-image-fallback';
+                        fallback.textContent = '🎮';
+                        this.parentElement.insertBefore(fallback, this);
+                    };
+                    gameContainer.appendChild(img);
+                } else {
+                    const fallback = document.createElement('div');
+                    fallback.className = 'game-image-fallback';
+                    fallback.textContent = '🎮';
+                    gameContainer.appendChild(fallback);
+                }
                 
                 const nameSpan = document.createElement('span');
                 nameSpan.textContent = game;
-                tdGame.appendChild(nameSpan);
+                gameContainer.appendChild(nameSpan);
+                
+                tdGame.appendChild(gameContainer);
                 
                 const actionButtons = document.createElement('span');
                 actionButtons.className = 'action-buttons';
@@ -2369,6 +3102,43 @@ select[multiple] option:checked {
                     }
                 }
             });
+            
+            // Listen for game images cache changes
+            database.ref('gameImagesCache').on('value', (snapshot) => {
+                if (isInitializing || !hasLoadedInitialData) return;
+                const data = snapshot.val();
+                if (data) {
+                    gameImagesCache = data;
+                    renderTable();
+                    if (activeTab === 'random') {
+                        initializeRandomWheel();
+                    }
+                    if (activeTab === 'clips') {
+                        renderFilterTags();
+                    }
+                }
+            });
+            
+            // Listen for wheel state changes (real-time sync)
+            database.ref('wheelState').on('value', (snapshot) => {
+                if (isInitializing || !hasLoadedInitialData) return;
+                const data = snapshot.val();
+                if (data && activeTab === 'random') {
+                    handleWheelStateUpdate(data);
+                }
+            });
+            
+            // Listen for spin history changes
+            database.ref('spinHistory').on('value', (snapshot) => {
+                if (isInitializing || !hasLoadedInitialData) return;
+                const data = snapshot.val();
+                if (data) {
+                    spinHistory = Object.values(data).sort((a, b) => b.timestamp - a.timestamp).slice(0, 10);
+                    if (activeTab === 'random') {
+                        renderSpinHistory();
+                    }
+                }
+            });
         }
 
         // Load data from Firebase
@@ -2424,6 +3194,9 @@ select[multiple] option:checked {
                     updateStats();
                     isInitializing = false;
                     hasLoadedInitialData = true;
+                    
+                    // Load game images cache
+                    loadGameImagesCacheFromFirebase();
                 })
                 .catch((error) => {
                     console.error('Erreur lors du chargement:', error);
@@ -2475,7 +3248,355 @@ select[multiple] option:checked {
             
             database.ref('clips').set(clipsObject);
         }
+        
+        // Save game images cache to Firebase
+        function saveGameImagesCacheToFirebase() {
+            if (!isFirebaseConfigured) return;
+            database.ref('gameImagesCache').set(gameImagesCache);
+        }
+        
+        // Load game images cache from Firebase
+        function loadGameImagesCacheFromFirebase() {
+            if (!isFirebaseConfigured) return;
+            
+            database.ref('gameImagesCache').once('value')
+                .then((snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        gameImagesCache = data;
+                        renderTable();
+                        if (activeTab === 'random') {
+                            initializeRandomWheel();
+                        }
+                        if (activeTab === 'clips') {
+                            renderFilterTags();
+                        }
+                    } else {
+                        // No cache exists, fetch images for existing games
+                        loadAllGameImages();
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error loading game images cache:', error);
+                });
+        }
 
+        // Random Wheel Functions
+        
+        function initializeRandomWheel() {
+            wheelCanvas = document.getElementById('wheelCanvas');
+            if (!wheelCanvas) return;
+            
+            wheelCtx = wheelCanvas.getContext('2d');
+            
+            // Populate game checkboxes with images
+            const container = document.getElementById('randomGameCheckboxes');
+            container.innerHTML = '';
+            
+            games.forEach((game, index) => {
+                const item = document.createElement('div');
+                item.className = 'game-checkbox-item';
+                
+                const imageCache = gameImagesCache[game];
+                const imageHtml = imageCache && imageCache.imageUrl ? 
+                    `<img src="${imageCache.imageUrl}" alt="${escapeHtml(game)}" class="wheel-game-item-image" onerror="this.style.display='none';" />` :
+                    `<div class="wheel-game-item-image" style="display:flex;align-items:center;justify-content:center;font-size:16px;">🎮</div>`;
+                
+                item.innerHTML = `
+                    <input type="checkbox" id="wheel-game-${index}" value="${escapeHtml(game)}" onchange="updateSelectedGames()">
+                    ${imageHtml}
+                    <label for="wheel-game-${index}" style="flex:1;cursor:pointer;">${escapeHtml(game)}</label>
+                `;
+                container.appendChild(item);
+            });
+            
+            // Draw initial empty wheel
+            drawWheel([]);
+            updateSelectedGames();
+            renderSpinHistory();
+        }
+        
+        function updateSelectedGames() {
+            const checkboxes = document.querySelectorAll('#randomGameCheckboxes input[type="checkbox"]');
+            selectedGamesForWheel = [];
+            
+            checkboxes.forEach((checkbox, index) => {
+                const item = checkbox.closest('.game-checkbox-item');
+                if (checkbox.checked) {
+                    selectedGamesForWheel.push(checkbox.value);
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            
+            // Update count
+            document.getElementById('randomGameCount').textContent = 
+                `${selectedGamesForWheel.length} jeu${selectedGamesForWheel.length !== 1 ? 'x' : ''} sélectionné${selectedGamesForWheel.length !== 1 ? 's' : ''}`;
+            
+            // Enable/disable spin button
+            const spinButton = document.getElementById('spinButton');
+            spinButton.disabled = selectedGamesForWheel.length === 0 || isSpinning;
+            
+            // Redraw wheel
+            if (!isSpinning) {
+                drawWheel(selectedGamesForWheel);
+            }
+        }
+        
+        function drawWheel(gamesList) {
+            if (!wheelCtx) return;
+            
+            const canvas = wheelCanvas;
+            const ctx = wheelCtx;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 10;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (gamesList.length === 0) {
+                // Draw empty wheel
+                ctx.fillStyle = '#e0e0e0';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.fillStyle = '#666';
+                ctx.font = '20px var(--font-family-base)';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('Sélectionnez des jeux', centerX, centerY);
+                return;
+            }
+            
+            const anglePerSection = (2 * Math.PI) / gamesList.length;
+            
+            // Draw sections
+            gamesList.forEach((game, index) => {
+                const startAngle = currentRotation + index * anglePerSection;
+                const endAngle = startAngle + anglePerSection;
+                
+                // Draw section
+                ctx.fillStyle = wheelColors[index % wheelColors.length];
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Draw border
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.stroke();
+                
+                // Draw text
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + anglePerSection / 2);
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 14px var(--font-family-base)';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 4;
+                ctx.shadowOffsetX = 1;
+                ctx.shadowOffsetY = 1;
+                
+                const text = game.length > 20 ? game.substring(0, 17) + '...' : game;
+                ctx.fillText(text, radius * 0.5, 0);
+                ctx.restore();
+            });
+            
+            // Draw center circle
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+        
+        function spinWheel() {
+            if (isSpinning || selectedGamesForWheel.length === 0) return;
+            
+            isSpinning = true;
+            document.getElementById('spinButton').disabled = true;
+            document.getElementById('wheelResult').innerHTML = '';
+            
+            // Generate random result
+            const randomIndex = Math.floor(Math.random() * selectedGamesForWheel.length);
+            const winner = selectedGamesForWheel[randomIndex];
+            
+            // Calculate target rotation (multiple full spins + random position)
+            const spins = 5 + Math.random() * 3; // 5-8 full rotations
+            const anglePerSection = (2 * Math.PI) / selectedGamesForWheel.length;
+            const targetAngle = spins * 2 * Math.PI + randomIndex * anglePerSection + anglePerSection / 2;
+            
+            const startTime = Date.now();
+            const duration = 5000; // 5 seconds
+            const startRotation = currentRotation;
+            
+            // Save to Firebase for real-time sync
+            const wheelState = {
+                isSpinning: true,
+                selectedGames: selectedGamesForWheel,
+                startRotation: startRotation,
+                targetAngle: targetAngle,
+                winner: winner,
+                startTime: startTime,
+                duration: duration
+            };
+            
+            if (isFirebaseConfigured) {
+                database.ref('wheelState').set(wheelState);
+            }
+            
+            animateSpin(startTime, duration, startRotation, targetAngle, winner);
+        }
+        
+        function animateSpin(startTime, duration, startRotation, targetAngle, winner) {
+            const now = Date.now();
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function (ease-out cubic)
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            
+            currentRotation = startRotation + targetAngle * easeProgress;
+            drawWheel(selectedGamesForWheel);
+            
+            if (progress < 1) {
+                requestAnimationFrame(() => animateSpin(startTime, duration, startRotation, targetAngle, winner));
+            } else {
+                // Spin complete
+                isSpinning = false;
+                document.getElementById('spinButton').disabled = false;
+                showResult(winner);
+                addToHistory(winner);
+                
+                if (isFirebaseConfigured) {
+                    database.ref('wheelState/isSpinning').set(false);
+                }
+            }
+        }
+        
+        function showResult(winner) {
+            const resultEl = document.getElementById('wheelResult');
+            resultEl.innerHTML = `<div class="result-display">🎉 ${escapeHtml(winner)} a été choisi!</div>`;
+            
+            // Create confetti effect
+            createConfetti();
+        }
+        
+        function createConfetti() {
+            const wheelSection = document.querySelector('.wheel-section');
+            const colors = ['#1FB8CD', '#FFC185', '#B4413C', '#D2BA4C', '#DB4545'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    wheelSection.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+        
+        function addToHistory(winner) {
+            const historyItem = {
+                id: Date.now().toString(),
+                game: winner,
+                timestamp: Date.now()
+            };
+            
+            spinHistory.unshift(historyItem);
+            spinHistory = spinHistory.slice(0, 10); // Keep only last 10
+            
+            if (isFirebaseConfigured) {
+                const historyObject = {};
+                spinHistory.forEach(item => {
+                    historyObject[item.id] = item;
+                });
+                database.ref('spinHistory').set(historyObject);
+            }
+            
+            renderSpinHistory();
+        }
+        
+        function renderSpinHistory() {
+            const container = document.getElementById('spinHistory');
+            
+            if (spinHistory.length === 0) {
+                container.innerHTML = '<div class="empty-state-text" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Aucun résultat pour le moment</div>';
+                return;
+            }
+            
+            container.innerHTML = spinHistory.map(item => {
+                const date = new Date(item.timestamp);
+                const timeStr = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                const dateStr = date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+                
+                return `
+                    <div class="history-item">
+                        <div class="history-item-game">${escapeHtml(item.game)}</div>
+                        <div class="history-item-time">${dateStr} à ${timeStr}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function handleWheelStateUpdate(state) {
+            if (!state.isSpinning || isSpinning) return;
+            
+            // Sync the wheel spin from another user
+            selectedGamesForWheel = state.selectedGames;
+            isSpinning = true;
+            document.getElementById('spinButton').disabled = true;
+            document.getElementById('wheelResult').innerHTML = '';
+            
+            // Update checkboxes
+            const checkboxes = document.querySelectorAll('#randomGameCheckboxes input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectedGamesForWheel.includes(checkbox.value);
+                const item = checkbox.closest('.game-checkbox-item');
+                if (checkbox.checked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            
+            updateSelectedGames();
+            
+            // Calculate remaining animation time
+            const now = Date.now();
+            const elapsed = now - state.startTime;
+            const remaining = state.duration - elapsed;
+            
+            if (remaining > 0) {
+                animateSpin(state.startTime, state.duration, state.startRotation, state.targetAngle, state.winner);
+            } else {
+                // Spin already finished
+                currentRotation = state.startRotation + state.targetAngle;
+                drawWheel(selectedGamesForWheel);
+                isSpinning = false;
+                document.getElementById('spinButton').disabled = false;
+                showResult(state.winner);
+            }
+        }
+        
         // Initialiser l'application
         initializeState();
         renderTable();
